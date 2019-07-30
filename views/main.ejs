@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
+    <title>Main</title>
+</head>
+<body>
+    <h1 id="header"><a href="/main">Choose</a> your artist.</h1>
+
+    <div class="main__form">
+        <form action="/main" method="POST">
+            <input type="text" name="phrase" id="input" autocomplete="off" value="<%= initialValue %>"> <br>
+            <% if(searchError) { %>
+            <div class="flash-red__allert">Such artist does not exist.</div>
+            <% } %>
+            <button class="btn" type="submit" id="searchButton">Search!</button> 
+        </form>
+    </div>
+
+</body>
+</html>

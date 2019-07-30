@@ -1,0 +1,29 @@
+{
+  "name": "geniusapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Mieczos",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "genius-api": "^0.4.1",
+    "jquery": "^3.4.1",
+    "node-fetch": "^2.6.0"
+  }
+}

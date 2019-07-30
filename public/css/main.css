@@ -1,0 +1,122 @@
+* {
+    text-align: center;
+    font-family: 'Fira Code', monospace;
+    background-color: rgb(6, 10, 48);
+    color: rgb(17, 156, 236);
+}
+
+#header {
+    margin-top: 8%;
+}
+
+#header a {
+    text-decoration: none;
+    color: rgb(255, 92, 228);
+
+    filter: brightness(70%);
+
+    transition: filter .3s ease-in-out;
+}
+
+#header a:hover {
+    filter: brightness(100%);
+}
+
+.main__text-container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding: 2%;
+    margin-top: 7rem;
+
+    background-color: inherit;
+}
+
+.main__text {
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    white-space: pre-line;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+
+    border-radius: 15px;
+    
+    box-shadow: inset -3px -3px 25px rgb(6, 10, 48);
+
+}
+
+.lyrics {
+    text-align: justify;
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 156, 236);
+    
+    letter-spacing: 2px;
+
+    animation-name: showup;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
+
+
+.flash-red__allert {
+    color: red;
+    font-family: inherit;
+    font-size: 12px;
+    margin: 5px;
+    text-align: center;
+}
+
+.main__form input {
+    background-color: rgb(6, 10, 48);
+    width: 20rem;
+    height: 2.2rem;
+    font-size: 30px;
+    color: pink;
+
+    border-radius: 10px;
+    border-color: pink;
+}
+
+#creds {
+    color: rgb(255, 92, 228);
+}
+
+.return__button {
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+.btn {
+    text-decoration: none;
+    font-size: 2rem;
+    letter-spacing: 5px;
+    color: white;
+    opacity: .7;
+
+    transition: opacity .3s ease-in-out;
+
+    border: none;
+}
+
+.btn:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#searchButton {
+    margin: 10px;
+}
+
+@keyframes showup {
+    from {
+    opacity: 0;
+  }
+
+    to {
+    opacity: 1;
+  }
+  }
