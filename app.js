@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 const router = require("./routes/router");
+const defaultRoute = require("./routes/default");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(router);
+app.use("/", defaultRoute.getDefault);
 
 const port = 3000;
 app.listen(port, () => {

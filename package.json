@@ -24,6 +24,7 @@
     "express-validator": "^6.1.1",
     "genius-api": "^0.4.1",
     "jquery": "^3.4.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "node-spotify-api": "^1.1.1"
   }
 }

@@ -12,14 +12,15 @@
 #header a {
     text-decoration: none;
     color: rgb(255, 92, 228);
+    background-color: rgb(6, 10, 48);
 
-    filter: brightness(70%);
+    opacity: .7;
 
-    transition: filter .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
 }
 
 #header a:hover {
-    filter: brightness(100%);
+    opacity: 1;
 }
 
 .main__text-container {
@@ -34,9 +35,8 @@
 
 .main__text {
     background-color: rgb(255, 255, 255);
-    position: relative;
     white-space: pre-line;
-
+    position: absolute;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 30px;
@@ -44,7 +44,7 @@
 
     border-radius: 15px;
     
-    box-shadow: inset -3px -3px 25px rgb(6, 10, 48);
+    box-shadow: inset -3px -5px 25px rgb(6, 10, 48);
 
 }
 
@@ -52,6 +52,7 @@
     text-align: justify;
     background-color: rgb(255, 255, 255);
     color: rgb(17, 156, 236);
+    position: relative;
     
     letter-spacing: 2px;
 
