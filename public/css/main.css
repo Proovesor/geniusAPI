@@ -121,3 +121,10 @@
     opacity: 1;
   }
   }
+
+  @media (max-width: 500px) {
+    .return__button {
+        margin-top: .5rem;
+        margin-left: .5rem;
+    }
+  }

@@ -44,7 +44,6 @@ exports.postSearch = (req, res, next) => {
         }
         finalTitle += ` ${title[i]}`;
       }
-      console.log(finalTitle);
       // spotify
       //   .search({
       //     type: "track",
