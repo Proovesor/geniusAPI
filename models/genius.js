@@ -1,31 +1,44 @@
-const api = require("genius-api");
-const genius = new api(process.env.GENIUS_API_TOKEN);
+const Genius = require("genius-api");
+const genius = new Genius(process.env.GENIUS_API_TOKEN);
 
 const cheerio = require("../util/cheerio");
 
 const fetch = require("node-fetch");
 
-api.prototype.getArtistByName = function getArtistByName(name) {
-  const normalize = name => name.replace(/\./g, "").toLowerCase();
+Genius.prototype.getArtistByName = function getArtistByName(name) {
+  const normalize = name =>
+    name
+      .replace(/\./g, "")
+      .replace(/^\s+/g, "")
+      .toLowerCase();
 
   const normalizedName = normalize(name);
 
   return this.search(name)
     .then(response => {
-      let song;
-      response.hits.find(hit => {
+      let song = response.hits.find(hit => {
         if (
+          //checking due to unexpected charAt(0) in certain cases
+          normalize(hit.result.primary_artist.name).charAt(0) !==
+          normalizedName.charAt(0)
+        ) {
+          hit.result.primary_artist.name = hit.result.primary_artist.name.slice(
+            1,
+            hit.result.primary_artist.name.length
+          );
+        }
+        return (
           hit.type === "song" &&
           normalize(hit.result.primary_artist.name) === normalizedName
-        ) {
-          song = hit;
-        }
+        );
       });
+
       if (!song) {
         const error = new Error("Such artist does not exist.");
         error.statusCode = 422;
         throw error;
       }
+
       return Promise.resolve(song);
     })
     .then(song => {
@@ -39,7 +52,7 @@ api.prototype.getArtistByName = function getArtistByName(name) {
     });
 };
 
-api.prototype.getLyrics = function getLyrics(songUrl) {
+Genius.prototype.getLyrics = function getLyrics(songUrl) {
   return fetch(songUrl, {
     method: "GET"
   })

@@ -17,7 +17,7 @@ router.post(
       .custom((value, { req }) => {
         return genius.getArtistByName(req.body.phrase).then(result => {
           if (!result) {
-            return Promise.reject("Such artist does not exist!");
+            return Promise.reject("Such artist could not be found!");
           }
         });
       })
