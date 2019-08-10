@@ -35,7 +35,7 @@ Genius.prototype.getArtistByName = function getArtistByName(name) {
 
       if (!song) {
         const error = new Error("Such artist does not exist.");
-        error.statusCode = 422;
+        error.statusCode = 404;
         throw error;
       }
 
@@ -61,7 +61,7 @@ Genius.prototype.getLyrics = function getLyrics(songUrl) {
         return Promise.resolve(response.text());
       }
       const error = new Error("Could not fetch url.");
-      error.statusCode = 422;
+      error.statusCode = 404;
       throw error;
     })
     .then(cheerio.parseSongHTML)
