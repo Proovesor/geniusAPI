@@ -5,7 +5,9 @@ const cheerio = require("../util/cheerio");
 
 const fetch = require("node-fetch");
 
-Genius.prototype.getArtistByName = function getArtistByName(name) {
+Genius.prototype.getArtistByName = async function getArtistByName(name) {
+  let song;
+
   const normalize = name =>
     name
       .replace(/\./g, "")
@@ -14,63 +16,60 @@ Genius.prototype.getArtistByName = function getArtistByName(name) {
 
   const normalizedName = normalize(name);
 
-  return this.search(name)
-    .then(response => {
-      let song = response.hits.find(hit => {
-        if (
-          //checking due to unexpected charAt(0) in certain cases
-          normalize(hit.result.primary_artist.name).charAt(0) !==
-          normalizedName.charAt(0)
-        ) {
-          hit.result.primary_artist.name = hit.result.primary_artist.name.slice(
-            1,
-            hit.result.primary_artist.name.length
-          );
-        }
-        return (
-          hit.type === "song" &&
-          normalize(hit.result.primary_artist.name) === normalizedName
+  try {
+    const response = await this.search(name);
+
+    song = await response.hits.find(hit => {
+      if (
+        //checking due to unexpected charAt(0) in certain cases
+        normalize(hit.result.primary_artist.name).charAt(0) !==
+        normalizedName.charAt(0)
+      ) {
+        hit.result.primary_artist.name = hit.result.primary_artist.name.slice(
+          1,
+          hit.result.primary_artist.name.length
         );
-      });
-
-      if (!song) {
-        const error = new Error("Such artist does not exist.");
-        error.statusCode = 404;
-        throw error;
       }
-
-      return Promise.resolve(song);
-    })
-    .then(song => {
-      return song.result.primary_artist.id;
-    })
-    .catch(err => {
-      if (!err.statusCode !== 500) {
-        err.statusCode = 500;
-      }
-      throw err;
+      return (
+        hit.type === "song" &&
+        normalize(hit.result.primary_artist.name) === normalizedName
+      );
     });
+
+    if (!song) {
+      const error = new Error("Such artist does not exist.");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return song.result.primary_artist.id;
+  } catch (err) {
+    if (!err.statusCode !== 500) {
+      err.statusCode = 500;
+    }
+    throw err;
+  }
 };
 
-Genius.prototype.getLyrics = function getLyrics(songUrl) {
-  return fetch(songUrl, {
-    method: "GET"
-  })
-    .then(response => {
-      if (response) {
-        return Promise.resolve(response.text());
-      }
+Genius.prototype.getLyrics = async function getLyrics(songUrl) {
+  try {
+    const response = await fetch(songUrl, {
+      method: "GET"
+    });
+
+    if (!response) {
       const error = new Error("Could not fetch url.");
       error.statusCode = 404;
       throw error;
-    })
-    .then(cheerio.parseSongHTML)
-    .catch(err => {
-      if (!err.statusCode !== 500) {
-        err.statusCode = 500;
-      }
-      throw err;
-    });
+    }
+    const finalResponse = await response.text();
+    return cheerio.parseSongHTML(finalResponse);
+  } catch (err) {
+    if (!err.statusCode !== 500) {
+      err.statusCode = 500;
+    }
+    throw err;
+  }
 };
 
 module.exports = genius;

@@ -14,12 +14,11 @@ router.post(
   [
     body("phrase")
       .isString()
-      .custom((value, { req }) => {
-        return genius.getArtistByName(req.body.phrase).then(result => {
-          if (!result) {
-            return Promise.reject("Such artist could not be found!");
-          }
-        });
+      .custom(async (value, { req }) => {
+        const result = await genius.getArtistByName(req.body.phrase);
+        if (!result) {
+          return Promise.reject("Such artist could not be found!");
+        }
       })
   ],
   mainControllers.postSearch
