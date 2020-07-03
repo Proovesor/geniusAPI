@@ -18,7 +18,7 @@ app.set("views", "views");
 app.use(router);
 app.use("/", defaultRoute.getDefault);
 
-const port = 3000;
+const port = 3001;
 app.listen(port, () => {
-  console.log(`Listening on port ${port}...`);
+    console.log(`Listening on port ${port}...`);
 });
